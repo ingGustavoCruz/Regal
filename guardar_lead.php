@@ -83,6 +83,10 @@ try {
             .text { font-size: 14px; line-height: 1.8; color: #8A8070; margin-bottom: 30px; font-weight: 200; }
             .gold-text { color: #C9A84C; font-weight: bold; }
             .footer { font-size: 10px; letter-spacing: 1px; color: #555; margin-top: 40px; border-top: 1px solid rgba(201,168,76,0.2); padding-top: 20px; }
+            /* Nuevos estilos para el Powered By KAI */
+            .powered-by-container { margin-top: 30px; border-top: 1px solid rgba(201,168,76,0.1); padding-top: 20px; }
+            .powered-by-text { font-size: 10px; letter-spacing: 4px; color: #8A8070; margin-bottom: 15px; text-transform: uppercase; }
+            .kai-logo { height: 25px; width: auto; opacity: 0.7; display: block; margin: 0 auto; }
           </style>
         </head>
         <body>
@@ -97,7 +101,16 @@ try {
               Serás de los primeros en experimentar el arte de celebrar con nosotros, y pronto recibirás noticias exclusivas sobre nuestra apertura y los beneficios que te esperan.
             </p>
             <p class='text'>Nos vemos pronto.</p>
-            <div class='footer'>© 2026 REGAL. TODOS LOS DERECHOS RESERVADOS.</div>
+            
+            <div class='footer'>
+              © 2026 REGAL. TODOS LOS DERECHOS RESERVADOS.
+              
+              <div class='powered-by-container'>
+                <div class='powered-by-text'>POWERED BY</div>
+                <img src='https://via.placeholder.com/100x35/0D0C0A/8A8070?text=KAI+LOGO' alt='KAI Experience' class='kai-logo'>
+              </div>
+            </div>
+
           </div>
         </body>
         </html>
