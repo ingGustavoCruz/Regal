@@ -421,3 +421,81 @@ footer {
     gap: 1rem;
   }
 }
+
+/* ==========================================
+   ESTILOS ESPECTACULARES DE ÉXITO (POST-ENVÍO)
+   ========================================== */
+
+/* Contenedor principal que reemplazará el contenido del form */
+.form-success-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+  opacity: 0; /* Empieza oculto para la animación */
+  animation: fadeUp 1s ease 0.2s forwards; /* Reutilizamos fadeUp con un retraso */
+  padding: 1rem 0;
+}
+
+/* El icono circular de la palomita */
+.success-icon-wrap {
+  margin-bottom: 1rem;
+}
+
+.success-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.4); /* Brillo sutil */
+}
+
+/* Titulo y Subtítulo elegantes */
+.success-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  color: var(--cream);
+  line-height: 1.2;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+.success-subtitle {
+  font-size: 1rem;
+  color: var(--cream2);
+  line-height: 1.8;
+  max-width: 380px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+.success-subtitle strong {
+  color: var(--gold);
+  font-weight: 400;
+}
+
+/* === Efecto Gold Confetti === */
+@keyframes confettiDrop {
+  0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+.confetti {
+  position: fixed;
+  top: -10px;
+  z-index: 1000;
+  opacity: 1;
+  pointer-events: none; /* No bloquea clics detrás */
+}
+
+/* Ajuste sutil para móviles */
+@media(max-width:600px){
+  .success-title { font-size: 2.1rem; }
+  .success-icon { width: 60px; height: 60px; font-size: 1.8rem; }
+}

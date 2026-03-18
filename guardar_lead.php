@@ -17,7 +17,7 @@ $password = '';
 // 2. Configuración SMTP (Office 365 / Outlook)
 $smtp_host = 'smtp.office365.com'; 
 $smtp_user = 'gustavo.cruz@escala-inc.com'; 
-$smtp_pass = 'TU_CONTRASEÑA_AQUI'; // Reemplaza esto en tu archivo local
+$smtp_pass = '22Alambr3$'; // Reemplaza esto en tu archivo local
 $smtp_port = 587;
 
 try {
