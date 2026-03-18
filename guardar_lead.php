@@ -14,11 +14,11 @@ $dbname = 'regal_db';
 $username = 'root'; 
 $password = ''; 
 
-// 2. Configuración SMTP (Modifica esto con tus datos reales)
-$smtp_host = 'smtp.ejemplo.com'; // Ej: smtp.gmail.com o el de tu hosting
-$smtp_user = 'hola@tusitio.com'; // Tu correo real
-$smtp_pass = 'tu_contraseña';    // Contraseña o App Password
-$smtp_port = 465;                // 465 para SSL (SMTPS), 587 para TLS
+// 2. Configuración SMTP (Office 365 / Outlook)
+$smtp_host = 'smtp.office365.com'; 
+$smtp_user = 'gustavo.cruz@escala-inc.com'; 
+$smtp_pass = 'TU_CONTRASEÑA_AQUI'; // Reemplaza esto en tu archivo local
+$smtp_port = 587;
 
 try {
     // ==========================================
@@ -55,11 +55,12 @@ try {
         $mail->SMTPAuth   = true;
         $mail->Username   = $smtp_user;
         $mail->Password   = $smtp_pass;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // O ENCRYPTION_STARTTLS si usas puerto 587
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // <-- IMPORTANTE: STARTTLS para el puerto 587
         $mail->Port       = $smtp_port;
         $mail->CharSet    = 'UTF-8';
 
         // Remitente y Destinatario
+        // OJO: En Office 365, el "setFrom" DEBE ser exactamente el mismo correo con el que te autenticas ($smtp_user)
         $mail->setFrom($smtp_user, 'Regal Coffee + Lounge');
         $mail->addAddress($correo, $nombre);
         $mail->addReplyTo($smtp_user, 'Regal Contacto');
