@@ -1,0 +1,10 @@
+# Dependencias de Composer (No se suben al repositorio)
+/vendor/
+
+# Archivos de configuración de editores de código (opcional pero recomendado)
+.vscode/
+.idea/
+
+# Archivos ocultos del sistema operativo (Windows/Mac)
+Thumbs.db
+.DS_Store
