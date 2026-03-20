@@ -22,11 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (!btnSubmit || !mensajeDiv) return; // Seguridad
 
-      // Estado de carga (Mejoramos la redacción)
-      btnSubmit.innerText = 'Confirmando estatus...';
+      // Estado de carga
+      btnSubmit.innerText = 'Confirmando...';
       btnSubmit.disabled = true;
       mensajeDiv.style.display = 'none';
       
+      // FormData empaca TODO el formulario automáticamente (Nombre, Correo y ahora WhatsApp)
       const formData = new FormData(form);
       
       fetch('guardar_lead.php', {
@@ -42,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
           // ==========================================
           
           // 1. REEMPLAZAMOS TODO EL CONTENIDO DEL FORMULARIO
-          // Esto bloquea efectivamente cualquier interacción futura y da feedback definitivo.
           const successHTML = `
             <div class="form-success-content">
               <div class="success-icon-wrap">
@@ -61,14 +61,12 @@ document.addEventListener('DOMContentLoaded', function() {
           `;
 
           form.innerHTML = successHTML;
-          // Al cambiar innerHTML, el vip-form mantiene su estilo de caja oscura centrado,
-          // pero su contenido ahora es la pantalla de éxito.
 
-          // 2. DISPARAMOS EL CONFETI DORADO (El "Wow Factor")
+          // 2. DISPARAMOS EL CONFETI DORADO
           triggerGoldConfetti();
 
         } else {
-          // Estado de error (Mantenemos la lógica actual)
+          // Estado de error 
           mensajeDiv.style.display = 'block';
           mensajeDiv.innerText = data.message;
           mensajeDiv.className = 'msg-error';
@@ -87,38 +85,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// --- Función Simplificada y Espectacular de Gold Confetti ---
-// No requiere librerías externas, es puro JS y CSS.
+// --- Función Espectacular de Gold Confetti ---
 function triggerGoldConfetti() {
-  const confettiColors = ['#C9A84C', '#E8D48A', '#8A8070']; // Paleta dorada y gris
+  const confettiColors = ['#C9A84C', '#E8D48A', '#8A8070']; 
   
-  // Creamos 60 partículas de confeti
   for (let i = 0; i < 60; i++) {
     const confettiEl = document.createElement('div');
     confettiEl.classList.add('confetti');
     
-    // Posición horizontal aleatoria (toda la pantalla)
     confettiEl.style.left = Math.random() * 100 + 'vw';
-    
-    // Color aleatorio de nuestra paleta
     confettiEl.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-    
-    // Tamaño aleatorio (pequeños y elegantes círculos)
     confettiEl.style.width = Math.random() * 8 + 4 + 'px';
-    confettiEl.style.height = confettiEl.style.width; // Cuadrados perfectos
+    confettiEl.style.height = confettiEl.style.width; 
     
-    // Duración y retraso aleatorio para un efecto natural
-    confettiEl.style.animationName = 'confettiDrop'; // Mismo nombre que en el CSS keyframe
-    confettiEl.style.animationDuration = Math.random() * 3 + 2 + 's'; // 2s a 5s
+    confettiEl.style.animationName = 'confettiDrop'; 
+    confettiEl.style.animationDuration = Math.random() * 3 + 2 + 's'; 
     confettiEl.style.animationDelay = Math.random() * 0.5 + 's';
     
-    // Los hacemos redondos para un look más refinado que confeti cuadrado
     confettiEl.style.borderRadius = '50%'; 
 
-    // Los añadimos al body
     document.body.appendChild(confettiEl);
 
-    // Limpieza automática del DOM después de que termina la animación
     setTimeout(() => confettiEl.remove(), (parseFloat(confettiEl.style.animationDuration) + 1) * 1000);
   }
 }

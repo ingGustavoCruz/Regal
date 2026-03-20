@@ -27,11 +27,14 @@ try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    // Capturamos los datos enviados por POST
     $nombre = trim($_POST['nombre'] ?? '');
     $correo = trim($_POST['correo'] ?? '');
+    // WhatsApp capturado
+    $whatsapp = trim($_POST['whatsapp'] ?? '');
 
     if (empty($nombre) || empty($correo)) {
-        echo json_encode(['status' => 'error', 'message' => 'Por favor, completa todos los campos.']);
+        echo json_encode(['status' => 'error', 'message' => 'Por favor, completa los campos obligatorios.']);
         exit;
     }
 
@@ -40,8 +43,13 @@ try {
         exit;
     }
 
-    $stmt = $pdo->prepare("INSERT INTO vip_leads (nombre, correo) VALUES (:nombre, :correo)");
-    $stmt->execute(['nombre' => $nombre, 'correo' => $correo]);
+    // Consulta INSERT con la columna de whatsapp
+    $stmt = $pdo->prepare("INSERT INTO vip_leads (nombre, correo, whatsapp) VALUES (:nombre, :correo, :whatsapp)");
+    $stmt->execute([
+        'nombre' => $nombre, 
+        'correo' => $correo,
+        'whatsapp' => $whatsapp
+    ]);
 
     // ==========================================
     // ENVÍO DE CORREO (PHPMailer)
@@ -55,21 +63,20 @@ try {
         $mail->SMTPAuth   = true;
         $mail->Username   = $smtp_user;
         $mail->Password   = $smtp_pass;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // <-- IMPORTANTE: STARTTLS para el puerto 587
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
         $mail->Port       = $smtp_port;
         $mail->CharSet    = 'UTF-8';
 
         // Remitente y Destinatario
-        // OJO: En Office 365, el "setFrom" DEBE ser exactamente el mismo correo con el que te autenticas ($smtp_user)
-        $mail->setFrom($smtp_user, 'Regal Coffee + Lounge');
+        $mail->setFrom($smtp_user, 'Régal Coffee + Lounge');
         $mail->addAddress($correo, $nombre);
-        $mail->addReplyTo($smtp_user, 'Regal Contacto');
+        $mail->addReplyTo($smtp_user, 'Régal Contacto');
 
         // Contenido del correo
         $mail->isHTML(true);
-        $mail->Subject = 'Tu acceso VIP ha sido confirmado | Regal';
+        $mail->Subject = 'Tu acceso VIP ha sido confirmado | Régal';
         
-        // Diseño HTML
+        // Diseño HTML (Colores dorados originales)
         $mensaje_html = "
         <!DOCTYPE html>
         <html lang='es'>
@@ -83,7 +90,6 @@ try {
             .text { font-size: 14px; line-height: 1.8; color: #8A8070; margin-bottom: 30px; font-weight: 200; }
             .gold-text { color: #C9A84C; font-weight: bold; }
             .footer { font-size: 10px; letter-spacing: 1px; color: #555; margin-top: 40px; border-top: 1px solid rgba(201,168,76,0.2); padding-top: 20px; }
-            /* Nuevos estilos para el Powered By KAI */
             .powered-by-container { margin-top: 30px; border-top: 1px solid rgba(201,168,76,0.1); padding-top: 20px; }
             .powered-by-text { font-size: 10px; letter-spacing: 4px; color: #8A8070; margin-bottom: 15px; text-transform: uppercase; }
             .kai-logo { height: 25px; width: auto; opacity: 0.7; display: block; margin: 0 auto; }
@@ -91,7 +97,7 @@ try {
         </head>
         <body>
           <div class='container'>
-            <div class='logo'>Regal</div>
+            <div class='logo'>RÉGAL</div>
             <div class='title'>Bienvenido a la lista fundadora</div>
             <p class='text'>Estimado/a <span class='gold-text'>$nombre</span>,</p>
             <p class='text'>
@@ -103,11 +109,11 @@ try {
             <p class='text'>Nos vemos pronto.</p>
             
             <div class='footer'>
-              © 2026 REGAL. TODOS LOS DERECHOS RESERVADOS.
+              © 2026 RÉGAL. TODOS LOS DERECHOS RESERVADOS.
               
               <div class='powered-by-container'>
                 <div class='powered-by-text'>POWERED BY</div>
-                <img src='https://via.placeholder.com/100x35/0D0C0A/8A8070?text=KAI+LOGO' alt='KAI Experience' class='kai-logo'>
+                <img src='https://escala-digital.com/menus/KAI_NG.png' alt='KAI Experience' class='kai-logo'>
               </div>
             </div>
 
@@ -117,15 +123,12 @@ try {
         ";
 
         $mail->Body    = $mensaje_html;
-        $mail->AltBody = "Estimado/a $nombre, es un placer confirmarte que tu lugar en nuestra lista VIP ha sido asegurado con éxito. Como miembro fundador, has obtenido automáticamente el estatus Gold."; // Texto plano por si falla el HTML
+        $mail->AltBody = "Estimado/a $nombre, es un placer confirmarte que tu lugar en nuestra lista VIP ha sido asegurado con éxito. Como miembro fundador, has obtenido automáticamente el estatus Gold."; 
 
         $mail->send();
         echo json_encode(['status' => 'success', 'message' => '¡Bienvenido! Tu lugar ha sido asegurado y te enviamos un correo con los detalles.']);
 
     } catch (Exception $e) {
-        // Si el correo falla, pero se guardó en BD, le decimos al usuario que está registrado de todos modos.
-        // En desarrollo, puedes descomentar la siguiente línea para ver por qué falló el correo en la consola de red:
-        // error_log("Mailer Error: {$mail->ErrorInfo}");
         echo json_encode(['status' => 'success', 'message' => '¡Bienvenido! Tu lugar ha sido asegurado en nuestra base de datos.']);
     }
 

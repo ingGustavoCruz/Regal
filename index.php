@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Próximamente | Regal Coffee + Lounge — Experiencias de Distinción en Ciudad de México.">
     <title>Próximamente | Regal — Experiencias de Distinción</title>
-    
     <link rel="icon" type="image/png" href="imagenes/monito01.png">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
@@ -60,6 +58,11 @@
         <label for="correo">Correo electrónico</label>
         <input type="email" name="correo" id="correo" placeholder="guscruz@correo.com" required>
       </div>
+      <div class="form-row">
+        <label for="whatsapp">WhatsApp (Opcional)</label>
+        <input type="tel" name="whatsapp" id="whatsapp" placeholder="+52 55 1234 5678" pattern="[0-9\+\s\-]+" title="Ingresa un número de teléfono válido. Se permiten números, espacios y el símbolo +">
+      </div>
+      
       <button class="btn-primary" type="submit" id="btnSubmit">Solicitar Acceso VIP</button>
       <div id="form-mensaje"></div>
     </form>
