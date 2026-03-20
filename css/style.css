@@ -399,26 +399,57 @@ footer {
 }
 
 /* ==========================================
-   MEDIA QUERIES (MÓVIL)
+   MEDIA QUERIES (MÓVIL Y RESPONSIVIDAD)
    ========================================== */
 @media (max-width: 600px) {
-  nav {
-    padding: 1rem;
+  nav { 
+    padding: 1rem; 
   }
-  .nav-logo-img {
-    height: 75px;
+  .nav-logo-img { 
+    height: 60px; /* Un poco más pequeño para que respire bien */
   }
-  .hero {
-    padding: 8rem 1.5rem;
+  .hero { 
+    padding: 7rem 1.5rem; 
   }
-  .vip-form {
-    padding: 2rem 1.5rem;
+  .vip-form { 
+    padding: 2rem 1.5rem; 
   }
-  .time-num {
+  
+  /* Ajustes del Temporizador para que no se desborde */
+  .countdown { 
+    gap: 0.5rem; /* Menos espacio entre números */
+  }
+  .time-num { 
+    font-size: 2rem; 
+  }
+  .time-sep { 
+    font-size: 1.5rem; 
+    margin-top: -10px;
+  }
+  .time-box {
+    min-width: 50px;
+  }
+
+  /* Prevenir Zoom en iOS al tocar los inputs */
+  .form-row input {
+    font-size: 16px; 
+  }
+
+  /* Footer responsivo */
+  .social-links {
+    flex-wrap: wrap; /* Si no caben, que pasen abajo ordenadamente */
+    gap: 1.5rem;
+  }
+}
+
+/* Opcional: Para pantallas SÚPER pequeñas (como teléfonos antiguos) */
+@media (max-width: 360px) {
+  .hero-title {
     font-size: 2.2rem;
   }
-  .countdown {
+  .social-links {
     gap: 1rem;
+    font-size: 0.55rem;
   }
 }
 
