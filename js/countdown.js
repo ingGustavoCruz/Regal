@@ -2,7 +2,9 @@
 // LÓGICA DEL TEMPORIZADOR
 // ==========================================
 // NOTA BUENA PRÁCTICA: Usar fecha ISO con offset (MX -06:00) si es exacto
-const targetDate = new Date("September 1, 2026 00:00:00").getTime();
+// const targetDate = new Date("May 1, 2026 00:00:00").getTime();
+// Usando formato ISO 8601 con el offset de CDMX (-06:00)
+const targetDate = new Date("2026-05-01T00:00:00-06:00").getTime();
 
 const timerInterval = setInterval(function() {
   const now = new Date().getTime();
